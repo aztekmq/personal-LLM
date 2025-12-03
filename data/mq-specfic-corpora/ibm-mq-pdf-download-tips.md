@@ -15,6 +15,77 @@
 * For 9.3 and 9.4, you often get both “Multiplatforms” and “z/OS / Program Directories” documentation sets. ([IBM][2])
 
 ---
+# **command-line examples** (Linux and Windows)
+
+## ✅ URL to download
+
+* `https://public.dhe.ibm.com/software/integration/wmq/docs/V9.4/PDFs/mq94.install.pdf`
+
+---
+
+## 🐧 On Linux / macOS (bash, WSL, etc.)
+
+Using `curl` (standard tool on most Unix-like systems):
+
+```bash
+curl -L -O https://public.dhe.ibm.com/software/integration/wmq/docs/V9.4/PDFs/mq94.install.pdf
+```
+
+* `-L` tells curl to follow redirects (useful in some cases). ([Curl][1])
+* `-O` tells curl to save the file using the remote name (`mq94.install.pdf`). ([TechTarget][2])
+
+Alternatively, using `wget`:
+
+```bash
+wget https://public.dhe.ibm.com/software/integration/wmq/docs/V9.4/PDFs/mq94.install.pdf
+```
+
+If you want to force the output directory or filename:
+
+```bash
+wget -O ~/Downloads/mq94.install.pdf https://public.dhe.ibm.com/software/integration/wmq/docs/V9.4/PDFs/mq94.install.pdf
+```
+
+---
+
+## 🪟 On Windows (PowerShell)
+
+Using built-in PowerShell `Invoke-WebRequest`:
+
+```powershell
+Invoke-WebRequest -Uri "https://public.dhe.ibm.com/software/integration/wmq/docs/V9.4/PDFs/mq94.install.pdf" -OutFile "mq94.install.pdf"
+```
+
+This downloads the PDF and saves it as `mq94.install.pdf` in the current directory. ([ITPro Today][3])
+
+If you prefer `curl.exe` (on recent Windows with curl available):
+
+```powershell
+curl.exe -L -o mq94.install.pdf https://public.dhe.ibm.com/software/integration/wmq/docs/V9.4/PDFs/mq94.install.pdf
+```
+
+The `-L` flag follows redirects; `-o` sets the output filename. ([Microsoft Learn][4])
+
+---
+
+## 📂 Example with your project structure
+
+If you want to download into your `docs/ibm-mq-pdfs/` directory (inside your repo) on Linux/macOS:
+
+```bash
+mkdir -p docs/ibm-mq-pdfs
+cd docs/ibm-mq-pdfs
+curl -L -O https://public.dhe.ibm.com/software/integration/wmq/docs/V9.4/PDFs/mq94.install.pdf
+```
+
+On Windows (PowerShell), from the root of your repo:
+
+```powershell
+New-Item -ItemType Directory -Force -Path .\docs\ibm-mq-pdfs
+cd .\docs\ibm-mq-pdfs
+Invoke-WebRequest -Uri "https://public.dhe.ibm.com/software/integration/wmq/docs/V9.4/PDFs/mq94.install.pdf" -OutFile "mq94.install.pdf"
+```
+---
 
 ## ✅ Recommendations — Tips for Downloading & Archiving
 
