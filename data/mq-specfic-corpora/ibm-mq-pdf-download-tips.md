@@ -85,12 +85,3 @@ New-Item -ItemType Directory -Force -Path .\docs\ibm-mq-pdfs
 cd .\docs\ibm-mq-pdfs
 Invoke-WebRequest -Uri "https://public.dhe.ibm.com/software/integration/wmq/docs/V9.4/PDFs/mq94.install.pdf" -OutFile "mq94.install.pdf"
 ```
----
-
-## ✅ Recommendations — Tips for Downloading & Archiving
-
-* **Download the entire PDF bundle** (all PDFs in the same folder) so that in-PDF hyperlinks between sections remain valid.
-* **Mirror or store locally** (on your mainframe or internal git repo) so you have documentation even when offline or after IBM deprecates older versions.
-* **For z/OS deployments**: be sure to fetch the “Program Directory” PDFs — they contain mainframe-specific info, datasets, macro reference, SMF formats, etc.
-* **When working across versions**: keep separate folder trees (e.g., `docs/9.2/`, `docs/9.3/`, `docs/9.4/`) so you don’t mix version-specific behaviors or commands.
-* **If you want offline browsing + search**: consider using the “IBM Documentation Offline” app + the corresponding MQ doc package per version. ([IBM][4])
