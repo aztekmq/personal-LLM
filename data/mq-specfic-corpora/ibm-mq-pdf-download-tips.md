@@ -1,10 +1,11 @@
 ## 📄 IBM MQ PDF Documentation — Versions 9.2 → 9.4+
 
-| Version                          | Description / What you get                                                                                                                                                   | Link to PDF documentation / download page                                         |
-| -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
-| **IBM MQ 9.2**                   | Full product documentation (core guides: install, admin, config, reference, security, developer, etc.) + z/OS Program Directories                                            | IBM MQ 9.2 PDF files for product documentation and Program Directories ([IBM][1]) |
-| **IBM MQ 9.3**                   | Full product documentation in PDF form — quick-start guide, admin, secure, install, reference, container guide, z/OS directories, etc. ([IBM][2])                            | IBM MQ 9.3 PDF files for product documentation & Program Directories ([IBM][2])   |
-| **IBM MQ 9.4 (Latest LTS / CD)** | Full documentation bundle: README, Quick Start Guide, install, plan, secure, admin, monitor, developer, reference, container docs, z/OS Program Directories, etc. ([IBM][3]) | IBM MQ 9.4 PDF files for product documentation & Program Directories ([IBM][3])   |
+| Version        | What you get                                                                                                                 | Link (PDF documentation / download page)                                                                                                                                                       |
+| -------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **IBM MQ 9.2** | Full product documentation (install, admin, config, secure, reference, z/OS Program Directories, etc.)                       | [IBM MQ 9.2 PDF product documentation & Program Directories](https://www.ibm.com/docs/SSFKSJ_9.2.0/com.ibm.mq.pro.doc/q001040_.htm) ([IBM][1])                                                 |
+| **IBM MQ 9.3** | Full product documentation + z/OS Program Directories in PDF format                                                          | [IBM MQ 9.3 PDF files for product documentation & Program Directories](https://www.ibm.com/docs/en/ibm-mq/9.3.x?topic=am-mq-93-pdf-files-product-documentation-program-directories) ([IBM][2]) |
+| **IBM MQ 9.4** | Full documentation bundle: install, admin, config, secure, container docs, z/OS Program Directories, reference manuals, etc. | [IBM MQ 9.4 PDF product documentation & Program Directories](https://www.ibm.com/docs/en/ibm-mq/9.4.x?topic=am-mq-94-pdf-files-product-documentation-program-directories) ([IBM][3])           |
+
 
 ### ℹ️ Notes on Using These Links
 
