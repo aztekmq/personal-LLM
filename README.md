@@ -38,10 +38,17 @@ This is the perfect starting point for:
 
 personal-LLM/
 │
-├── tiny_llm.py        # Main LLM implementation (model, training, generation)
-├── data/              # Optional training datasets
-├── samples/           # Output samples, test generations
-└── README.md
+├── tiny_llm.py              # Main LLM implementation (model + training + generation)
+├── requirements.txt         # Python dependencies
+├── README.md                # Docs (we already drafted this)
+├── .gitignore               # Ignore venvs, cache, etc.
+│
+├── data/
+│   └── sample_corpus.txt    # Example text to train on
+│
+└── scripts/
+    ├── train.sh             # Helper script to train
+    └── generate.sh          # Helper script to generate text
 
 ````
 
