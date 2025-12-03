@@ -1,0 +1,8 @@
+IBM MQ is a messaging middleware that enables applications to communicate reliably.
+A Queue Manager handles channels, queues, logs, and message persistence.
+Clusters allow workload balancing across multiple queue managers.
+Channels such as SVRCONN, SENDER, and RECEIVER provide connectivity.
+Dead-letter queues store undeliverable messages for later analysis.
+
+This is a simple corpus file used to train a small GPT-style model.
+Feel free to expand it with more domain-specific text.
