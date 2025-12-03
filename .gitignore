@@ -27,3 +27,6 @@ runs/
 
 # Data cache
 data/*.tmp
+
+# Your doc home
+docs/*
