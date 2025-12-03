@@ -15,7 +15,7 @@
 * For 9.3 and 9.4, you often get both “Multiplatforms” and “z/OS / Program Directories” documentation sets. ([IBM][2])
 
 ---
-# **command-line examples** (Linux and Windows)
+## **Command-line Download Examples** (Linux and Windows)
 
 ## ✅ URL to download
 
