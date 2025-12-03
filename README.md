@@ -42,6 +42,7 @@ This is an ideal starting point for:
 # 📂 Project Structure
 
 ```
+
 personal-LLM/
 │
 ├── tiny_llm.py              # Main LLM implementation (model, training, generation)
@@ -52,9 +53,13 @@ personal-LLM/
 ├── data/
 │   └── sample_corpus.txt    # Example training text corpus
 │
+├── tools/
+│   └── pdf_to_corpus.py     # Convert downloaded IBM MQ PDFs into text corpus
+│
 └── scripts/
-    ├── train.sh             # Convenience script to train the model
-    └── generate.sh          # Convenience script to generate text
+├── train.sh             # Convenience script to train the model
+└── generate.sh          # Convenience script to generate text
+
 ```
 
 You can replace `data/sample_corpus.txt` with whatever text you want the LLM to learn from (logs, notes, documentation, books, MQ configs, etc.).
@@ -70,25 +75,88 @@ Examples include:
 ### Simple Example Corpus
 
 ```
+
 This is a small demonstration corpus for training a tiny GPT-style model.
+
 ```
 
 ### IBM MQ Expert Corpus (example)
 
 ```
+
 IBM MQ queue managers handle message persistence, channels, logs, and recovery.
 AMQ9510: Messages cannot be delivered because the channel is inactive.
 Cluster workload balancing distributes traffic across queue managers.
+
 ```
 
 ### Conversational Corpus
 
 ```
+
 User: What is a queue manager?
 Assistant: A queue manager is the core IBM MQ component that...
+
 ```
 
 The more domain-specific and extensive your corpus, the more knowledgeable your LLM becomes in that area.
+
+---
+
+# 📥 Converting IBM MQ PDF Manuals Into a Training Corpus
+
+If you have downloaded IBM MQ PDF documentation (9.2 – current), you can automatically convert the entire set into a clean training corpus using the tool:
+
+```
+
+tools/pdf_to_corpus.py
+
+````
+
+### 📄 Usage
+
+Convert all PDFs in a directory into a text corpus:
+
+```bash
+python tools/pdf_to_corpus.py --pdf_dir docs/ibm-mq-pdfs
+````
+
+This will generate:
+
+```
+data/mq_ibm_docs_corpus.txt       # Combined full corpus
+data/mq_ibm_docs_index.jsonl      # Metadata mapping (PDF → page → text)
+```
+
+### 🔀 Optional: Train/Val Split
+
+```bash
+python tools/pdf_to_corpus.py \
+    --pdf_dir docs/ibm-mq-pdfs \
+    --train_val_split 0.9 \
+    --out_prefix mq_9x_official
+```
+
+Outputs:
+
+```
+data/mq_9x_official_train.txt
+data/mq_9x_official_val.txt
+data/mq_9x_official_corpus.txt
+data/mq_9x_official_index.jsonl
+```
+
+### 🧹 Cleaning & Chunking
+
+This tool:
+
+* Extracts text page-by-page
+* Cleans and normalizes whitespace
+* Removes tiny/empty pages
+* Provides traceability with JSONL
+* Concatenates into a clean text corpus ready for LLM training
+
+You can now train your LLM directly on official IBM MQ manuals.
 
 ---
 
