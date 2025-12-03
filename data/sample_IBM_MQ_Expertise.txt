@@ -3,6 +3,6 @@ A Queue Manager handles channels, queues, logs, and message persistence.
 Clusters allow workload balancing across multiple queue managers.
 Channels such as SVRCONN, SENDER, and RECEIVER provide connectivity.
 Dead-letter queues store undeliverable messages for later analysis.
-
-This is a simple corpus file used to train a small GPT-style model.
-Feel free to expand it with more domain-specific text.
+AMQ9510: Messages cannot be delivered because the channel is inactive.
+To resolve this error, restart the channel using: START CHANNEL(channel-name)
+Buffer pool tuning is critical on z/OS when MQ message rates exceed 50k/sec.
