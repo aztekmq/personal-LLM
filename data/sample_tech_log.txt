@@ -1,0 +1,3 @@
+2024-12-07 10:44:21 CHINIT STARTED
+AMQ9999: Channel ended abnormally.
+AMQ9412: The SSL certificate has expired.
