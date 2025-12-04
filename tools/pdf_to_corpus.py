@@ -15,7 +15,7 @@ Features:
 
 Usage examples:
 
-    # Basic: convert PDFs in docs/ibm-mq-pdfs into data/mq_corpus.txt
+    # Basic: convert PDFs in docs/ibm-mq-pdfs into data/mq_ibm_docs_corpus.txt
     python tools/pdf_to_corpus.py --pdf_dir docs/ibm-mq-pdfs
 
     # With train/val split
@@ -26,9 +26,12 @@ Usage examples:
     python tools/pdf_to_corpus.py --pdf_dir docs/ibm-mq-pdfs \
         --out_prefix mq_ibm_docs
 
-After running, you can train:
+After running, you can train, e.g.:
 
-    python tiny_llm.py --text_file data/mq_ibm_docs_corpus.txt --generate
+    python personal_llm.py \
+        --config config/medium.yaml \
+        --text_file data/mq_ibm_docs_corpus.txt \
+        --generate
 """
 
 import argparse
@@ -202,6 +205,9 @@ def build_corpus(
         f_c.write(full_corpus)
 
     total_words = len(full_corpus.split())
+    total_chars = len(full_corpus)
+    num_chunks = len(all_chunks)
+
     print(f"[OK] Wrote full corpus: {corpus_path} ({total_words} words)")
 
     # Optional train/val split
@@ -227,6 +233,120 @@ def build_corpus(
             f"     Train: {train_path} ({len(train_text.split())} words)\n"
             f"     Val:   {val_path} ({len(val_text.split())} words)"
         )
+
+    # After building the corpus, evaluate it and recommend a config model.
+    recommend_config_for_corpus(
+        total_words=total_words,
+        total_chars=total_chars,
+        num_chunks=num_chunks,
+    )
+
+
+# ---------------------------------------------------------------------------
+# Recommendation logic
+# ---------------------------------------------------------------------------
+
+def recommend_config_for_corpus(
+    total_words: int,
+    total_chars: int,
+    num_chunks: int,
+) -> None:
+    """
+    Evaluate the resulting corpus and recommend a config model file
+    (small.yaml / medium.yaml / large.yaml) from the config/ sub-directory.
+
+    Heuristic (tweak as desired):
+        - small:  total_words <  50k
+        - medium: total_words < 200k
+        - large:  total_words >= 200k
+
+    It then checks which of config/small.yaml, config/medium.yaml,
+    config/large.yaml actually exist and recommends the best available.
+    """
+    print("\n" + "-" * 72)
+    print("📊 CORPUS SUMMARY & MODEL RECOMMENDATION")
+    print("-" * 72)
+
+    print(f"Total chunks: {num_chunks}")
+    print(f"Total words:  {total_words}")
+    print(f"Total chars:  {total_chars}")
+
+    # Decide ideal size based purely on corpus size
+    if total_words < 50_000:
+        ideal_size = "small"
+        rationale = "Corpus is relatively small; a compact model is sufficient."
+    elif total_words < 200_000:
+        ideal_size = "medium"
+        rationale = "Corpus is moderate in size; a balanced model is appropriate."
+    else:
+        ideal_size = "large"
+        rationale = "Corpus is large; a higher-capacity model can be beneficial."
+
+    # Locate config directory (assumes repo layout: repo_root/config/*.yaml)
+    repo_root = Path(__file__).resolve().parents[1]
+    config_dir = repo_root / "config"
+
+    print(f"\nLooking for config files under: {config_dir}")
+
+    sizes_order = ["small", "medium", "large"]
+    available = {}
+
+    for size in sizes_order:
+        cfg_path = config_dir / f"{size}.yaml"
+        if cfg_path.exists():
+            available[size] = cfg_path
+
+    if not available:
+        print("[WARN] No config/*.yaml files found. "
+              "Create small.yaml / medium.yaml / large.yaml in config/.")
+        print(f"Ideal model size (based on corpus alone): {ideal_size}")
+        print("Example (once you create configs):")
+        print(f"  python personal_llm.py --config config/{ideal_size}.yaml "
+              f"--text_file data/mq_ibm_docs_corpus.txt --generate")
+        print()
+        return
+
+    # Select the best available file given the ideal size.
+    # Preference: exact match; otherwise, closest smaller, then closest larger.
+    recommended_size = None
+    if ideal_size in available:
+        recommended_size = ideal_size
+    else:
+        # Try smaller, then larger around the ideal
+        index = sizes_order.index(ideal_size)
+        # look left
+        for i in range(index - 1, -1, -1):
+            if sizes_order[i] in available:
+                recommended_size = sizes_order[i]
+                break
+        # if still none, look right
+        if recommended_size is None:
+            for i in range(index + 1, len(sizes_order)):
+                if sizes_order[i] in available:
+                    recommended_size = sizes_order[i]
+                    break
+
+    if recommended_size is None:
+        print("[WARN] Could not find any suitable config/*.yaml file.")
+        print(f"Ideal model size (based on corpus): {ideal_size}")
+        print("Available configs:", ", ".join(available.keys()) or "None")
+        print()
+        return
+
+    recommended_path = available[recommended_size]
+
+    print(f"\nIdeal model size (based on corpus): {ideal_size}")
+    print(f"Available config sizes: {', '.join(available.keys())}")
+    print(f"✅ Recommended config: {recommended_path}")
+    print(f"   Rationale: {rationale}")
+    print("\nSuggested training command:")
+    print(
+        f"  python personal_llm.py "
+        f"--config config/{recommended_size}.yaml "
+        f"--text_file {recommended_path.parent.parent / 'data' / 'mq_ibm_docs_corpus.txt'} "
+        f"--generate"
+    )
+    print()
 
 
 # ---------------------------------------------------------------------------

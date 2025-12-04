@@ -1,0 +1,13 @@
+# config/small.yaml
+# Small model configuration - fast and lightweight
+
+block_size: 8
+batch_size: 16
+n_embd: 128
+n_head: 4
+n_layer: 2
+dropout: 0.1
+max_iters: 1000
+learning_rate: 0.0007
+seed: 1337
+device: auto

@@ -1,0 +1,11 @@
+# config/medium.yaml
+block_size: 256
+batch_size: 64
+n_embd: 256
+n_head: 4
+n_layer: 4
+dropout: 0.1
+max_iters: 2000
+learning_rate: 0.0003
+seed: 1337
+device: auto   # "auto" | "cpu" | "cuda"

@@ -1,0 +1,13 @@
+# config/large.yaml
+# Large model configuration - deeper and wider (more capacity)
+
+block_size: 256       # same context length as medium
+batch_size: 64        # same batch size (increase if hardware allows)
+n_embd: 512           # wider embeddings
+n_head: 8             # more attention heads
+n_layer: 8            # deeper network
+dropout: 0.1
+max_iters: 4000       # more training iterations
+learning_rate: 0.0002 # slightly lower LR for stability
+seed: 1337
+device: auto          # "auto" | "cpu" | "cuda"
